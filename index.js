@@ -28,7 +28,7 @@ mongoose.connect(MONGODB_URL).catch(err => {
     }
 })
 
-app.use(router)
+app.use('/api', router)
 
 const PORT = API_PORT
 
