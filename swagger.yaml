@@ -1,0 +1,148 @@
+openapi: 3.1.1
+info:
+  title: API Netflix Clone
+  description: Netflix Clone API Express js MongoDB Databases
+paths:
+  /sign-up:
+    post:
+      summary: endpoint to sign-up user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user1@gmail.com
+                password:
+                  type: string
+                  example: pass1234
+      responses:
+        201:
+          description: Sign-Up Success
+        400:
+          description: Error, Sign-Up Failed!
+  /sign-in:
+    post:
+      summary: endpoint to sign-in user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user1@gmail.com
+                password:
+                  type: string
+                  example: pass1234
+                token:
+                  type: string
+                  example: token123
+      responses:
+        201:
+          description: Sign-In Success
+        401:
+          description: Error Unauthorized!
+  /sign-out:
+    delete:
+      summary: endpoint to sign-out user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user1@gmail.com
+                token:
+                  type: string
+                  example: token123
+      responses:
+        204:
+          description: Sign-Out Success
+        401:
+          description: Error Unauthorized!
+  /my-movies:
+    post:
+      summary: endpoint to adding favorite movie user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user1@gmail.com
+                token:
+                  type: string
+                  example: token123
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 101
+                    title:
+                      type: string
+                      example: testing title
+                    description:
+                      type: string
+                      example: testing description
+      responses:
+        201:
+          description: Adding Favorite Movie Success
+        401:
+          description: Error Unauthorized!
+    delete:
+      summary: endpoint to removing movie favorite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user1@gmail.com
+                token:
+                  type: string
+                  example: token123
+                movieID:
+                  type: integer
+                  example: 101
+      responses:
+        204:
+          description: Removing Movie Success
+        401:
+          description: Error Unauthorized!
+  /my-movies/{email}/{token}:
+    get:
+      summary: endpoint to getting favorite movies
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+            example: user1@gmail.com
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+            example: token123
+      responses:
+        200:
+          description: Success Getting Favorite Movies
+        401:
+          description: Error Unauthorized!
