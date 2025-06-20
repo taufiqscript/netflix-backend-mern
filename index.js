@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const router = require('./routes/index.route')
-const { API_PORT, MONGODB_URL } = process.env
+const { MONGODB_URL } = process.env
 const swaggerUI = require('swagger-ui-express')
 const YAML = require('yamljs')
 const swaggerDocs = YAML.load('./swagger.yaml')
@@ -30,7 +30,7 @@ mongoose.connect(MONGODB_URL).catch(err => {
 
 app.use('/api', router)
 
-const PORT = API_PORT
+const PORT = process.env.PORT || 3002
 
 app.listen(PORT, () => {
     console.log("server berjalan di port " + PORT)
