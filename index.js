@@ -32,6 +32,10 @@ app.use('/api', router)
 
 const PORT = process.env.PORT || 3002
 
+app.get('/', (req, res) => {
+    res.send('API Netflix Clone is running...')
+})
+
 app.listen(PORT, () => {
     console.log("server berjalan di port " + PORT)
 })
