@@ -68,6 +68,7 @@ const signToken = async (req, res) => {
         if (!isPasswordOk) return ERR(res, 401, "Password Wrong!")
 
         user.token = token
+        console.log("SIGN-IN REQ BODY:", req.body)
         await user.save()
 
         OK(res, 201, null, "Sign-In Success")
