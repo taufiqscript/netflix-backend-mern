@@ -71,7 +71,7 @@ const signToken = async (req, res) => {
         console.log("SIGN-IN REQ BODY:", req.body)
         await user.save()
 
-        OK(res, 201, null, "Sign-In Success")
+        OK(res, 201, { token }, "Sign-In Success")
     } catch (error) {
         return ERR(res, 401, "Error Unauthorized!")
     }
