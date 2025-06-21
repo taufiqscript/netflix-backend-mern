@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const request = require('supertest')
-const app = require('../index')
+const app = require('../api/index')
 
 beforeEach(async () => {
     await mongoose.connect(process.env.MONGODB_URL)
