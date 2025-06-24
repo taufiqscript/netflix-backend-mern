@@ -1,6 +1,6 @@
 const { User } = require('../models/index.model')
 const { ERR, OK } = require('../utils/response')
-const argon2 = require('argon2')
+const bcrypt = require('bcrypt')
 
 const getFavoriteMovie = async (req, res) => {
     try {
@@ -67,7 +67,8 @@ const signToken = async (req, res) => {
             return ERR(res, 404, "Email Not Found!")
         }
 
-        const passVerify = await argon2.verify(user.password, password)
+        // Verifikasi password pakai bcrypt
+        const passVerify = await bcrypt.compare(password, user.password)
 
         if (!passVerify) return ERR(res, 404, "Password Wrong")
 
@@ -86,12 +87,15 @@ const signToken = async (req, res) => {
 
 const signUp = async (req, res) => {
     const { email, password } = req.body
-    const hashPass = await argon2.hash(password)
     try {
         let user = await User.findOne({ email })
         if (user) {
             return ERR(res, 401, "Email is Available!")
         }
+
+        // Hash password pakai bcrypt
+        const saltRounds = 10
+        const hashPass = await bcrypt.hash(password, saltRounds)
 
         const addNewUser = await new User({ email, password: hashPass })
         await addNewUser.save()

@@ -21,6 +21,8 @@ app.use(
     swaggerUI.setup(swaggerDocs)
 );
 
+mongoose.set('strictQuery', true)
+
 mongoose.connect(MONGODB_URL).catch(err => {
     if (err) {
         console.log('tidak dapat terkoneksi ke database')
