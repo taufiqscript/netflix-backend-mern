@@ -59,31 +59,23 @@ const removeFavoriteMovie = async (req, res) => {
 
 const signToken = async (req, res) => {
     try {
-        const { email, password, token } = req.body
+        const { email, token } = req.body;
 
-        const user = await User.findOne({ email })
-        if (!user) {
-            console.log("❌ User not found");
-            return ERR(res, 404, "Email Not Found!")
-        }
+        if (!email || !token) return ERR(res, 400, "Invalid body");
 
-        // Verifikasi password pakai bcrypt
-        const passVerify = await bcrypt.compare(password, user.password)
+        const user = await User.findOne({ email });
+        if (!user) return ERR(res, 404, "Email Not Found!");
 
-        if (!passVerify) return ERR(res, 404, "Password Wrong")
+        user.token = token;
+        await user.save();
 
-        user.token = token
-
-        await user.save()
-            .then(() => console.log("✅ Token saved"))
-            .catch(err => console.error("❌ Save failed:", err));
-
-        OK(res, 201, null, "Sign-In Success")
+        console.log("✅ Token updated for:", email);
+        return OK(res, 201, null, "Sign-In Success");
     } catch (error) {
-        console.error("❌ Exception:", error);
-        return ERR(res, 401, "Error Unauthorized!")
+        console.error("❌ signToken error:", error);
+        return ERR(res, 500, "Internal Server Error");
     }
-}
+};
 
 const signUp = async (req, res) => {
     const { email, password } = req.body
