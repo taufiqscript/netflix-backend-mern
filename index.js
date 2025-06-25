@@ -12,7 +12,10 @@ const PORT = process.env.PORT || 3002
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: 'https://netflix-clone-mern-sage.vercel.app',
+    credentials: true
+}))
 app.use(express.json())
 
 app.use(
@@ -37,8 +40,5 @@ app.use(routes)
 app.listen(PORT, () => {
     console.log("server berjalan di port " + PORT)
 })
-// app.get('/', (req, res) => {
-//     res.send("Hello From API Express")
-// })
 
 module.exports = app
