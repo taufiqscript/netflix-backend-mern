@@ -15,9 +15,13 @@ This is the backend API for the Netflix Clone project, built using **Node.js**, 
 - CORS
 - Swagger (API documentation)
 
+## 🧑‍💻 Author
+- LinkedIn: [www.linkedin.com/in/taufiq-rahman-98a322356]
+
 ## 📦 Installation
 
 ```bash
+
 # Clone the repository
 git clone https://github.com/taufiqscript/netflix-backend-mern.git
 
