@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3002
 const app = express()
 
 app.use(cors({
-    origin: 'https://netflix-clone-mern-sage.vercel.app', 
+    origin: 'https://netflix-clone-lyart-five-36.vercel.app/', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
