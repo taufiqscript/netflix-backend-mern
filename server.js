@@ -3,10 +3,12 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const routes = require('./routes/index.route')
-const { MONGODB_URL } = process.env
+const path = require('path')
 const YAML = require('yamljs')
 const swaggerDocs = YAML.load(path.join(__dirname, "swagger.yaml"))
 const swaggerUI = require('swagger-ui-express')
+
+const { MONGODB_URL } = process.env
 
 const app = express()
 
