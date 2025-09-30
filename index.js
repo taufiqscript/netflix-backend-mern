@@ -8,8 +8,6 @@ const YAML = require('yamljs')
 const swaggerDocs = YAML.load("./swagger.yaml")
 const swaggerUI = require('swagger-ui-express')
 
-const PORT = process.env.PORT || 3002
-
 const app = express()
 
 app.use(cors());
@@ -35,8 +33,8 @@ mongoose.connect(MONGODB_URL).catch(err => {
 
 app.use(routes)
 
-app.listen(PORT, () => {
-    console.log("server berjalan di port " + PORT)
+app.get('/', (req, res) => {
+    res.send('Backend berjalan di vercel🚀')
 })
 
 module.exports = app
