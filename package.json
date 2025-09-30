@@ -4,9 +4,9 @@
   "description": "api for netlix clone",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "cross-env NODE_ENV=test jest --forceExit",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "api",
