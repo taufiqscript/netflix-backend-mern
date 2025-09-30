@@ -5,7 +5,7 @@ const cors = require('cors')
 const routes = require('./routes/index.route')
 const { MONGODB_URL } = process.env
 const YAML = require('yamljs')
-const swaggerDocs = YAML.load("./swagger.yaml")
+const swaggerDocs = YAML.load(path.join(__dirname, "swagger.yaml"))
 const swaggerUI = require('swagger-ui-express')
 
 const app = express()
