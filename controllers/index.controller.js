@@ -35,7 +35,7 @@ const checkFavoriteMovie = async (req, res) => {
         const user = await User.findById(req.user._id)
 
         const isFavorited = await user.favoriteMovies.some(movie => movie.id === movieID)
-        return OK(res, 201, { isFavorited }, "Check Movie By Id Success")
+        return OK(res, 201, { isFavorited }, "Movie is favorited")
     } catch (error) {
         return ERR(res, 400, "Error Checking Movie By Id")
     }
@@ -59,21 +59,20 @@ const removeFavoriteMovie = async (req, res) => {
 
 const signToken = async (req, res) => {
     try {
-        const { email, token } = req.body;
-
-        if (!email || !token) return ERR(res, 400, "Invalid body");
+        const { email, password, token } = req.body;
 
         const user = await User.findOne({ email });
-        if (!user) return ERR(res, 404, "Email Not Found!");
+        if (!user) return ERR(res, 404, "User Not Found!");
+
+        const verifyPass = await bcrypt.compare(password, user.password)
+        if (!verifyPass) return ERR(res, 400, "Password wrong!")
 
         user.token = token;
         await user.save();
 
-        console.log("✅ Token updated for:", email);
         return OK(res, 201, null, "Sign-In Success");
     } catch (error) {
-        console.error("❌ signToken error:", error);
-        return ERR(res, 500, "Internal Server Error");
+        return ERR(res, 500, error);
     }
 };
 
@@ -85,7 +84,6 @@ const signUp = async (req, res) => {
             return ERR(res, 401, "Email is Available!")
         }
 
-        // Hash password pakai bcrypt
         const saltRounds = 10
         const hashPass = await bcrypt.hash(password, saltRounds)
 
@@ -101,6 +99,7 @@ const signUp = async (req, res) => {
 const signOut = async (req, res) => {
     try {
         const user = await User.findById(req.user._id)
+
         user.token = null
         await user.save()
 
